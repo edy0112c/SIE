@@ -1,0 +1,11 @@
+# Entorno virtual y archivos de Python
+venv/
+__pycache__/
+*.pyc
+
+# Claves y secretos
+.env
+
+# Datos exportados (contienen información de alumnos)
+*.csv
+*.accdb

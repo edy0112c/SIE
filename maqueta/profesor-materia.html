@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SIE · Mis grupos</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/panel.css">
+</head>
+<body>
+<header class="top"><span class="mark">SIE</span><div><b>Sistema de Gestión Escolar</b><small>Profesor · Dra. Laura Pérez</small></div><span class="grow"></span><a class="out" href="login.html">Cerrar sesión</a></header>
+<main>
+<h1>Mis grupos</h1>
+<p class="sub">Elige la materia y marca el grupo que quieres revisar.</p>
+<div class="card"><div><label for="materia">Materia</label><select id="materia" data-filtra="#tabla"><option value="">Selecciona una opción</option><option value="poo">Programación Orientada a Objetos</option><option value="bd">Bases de Datos</option><option value="ed">Estructuras de Datos</option><option value="cd">Cálculo Diferencial</option></select></div></div>
+<div class="card wrap" id="tabla" hidden><table><thead><tr><th>Grupo</th><th>Clave</th><th>Horario</th><th>Cupo máximo</th><th>Inscritos</th><th class=c>Seleccionar</th></tr></thead><tbody><tr data-materia="poo"><td>001</td><td>5101</td><td>Lun-Mié 7:00-8:40</td><td>30</td><td>24</td><td class="c"><input type="radio" name="grupo" aria-label="Elegir grupo 001"></td></tr><tr data-materia="poo"><td>002</td><td>5101</td><td>Mar-Jue 9:00-10:40</td><td>30</td><td>28</td><td class="c"><input type="radio" name="grupo" aria-label="Elegir grupo 002"></td></tr><tr data-materia="bd"><td>001</td><td>5204</td><td>Lun-Mié 11:00-12:40</td><td>25</td><td>19</td><td class="c"><input type="radio" name="grupo" aria-label="Elegir grupo 001"></td></tr><tr data-materia="bd"><td>002</td><td>5204</td><td>Vie 7:00-10:00</td><td>25</td><td>25</td><td class="c"><input type="radio" name="grupo" aria-label="Elegir grupo 002"></td></tr><tr data-materia="ed"><td>001</td><td>5150</td><td>Mar-Jue 7:00-8:40</td><td>35</td><td>31</td><td class="c"><input type="radio" name="grupo" aria-label="Elegir grupo 001"></td></tr><tr data-materia="cd"><td>001</td><td>3102</td><td>Lun-Mié-Vie 13:00-14:00</td><td>40</td><td>36</td><td class="c"><input type="radio" name="grupo" aria-label="Elegir grupo 001"></td></tr></tbody></table></div>
+<div class="bar"><button class="btn" data-necesita="input[name=grupo]:checked" data-ir="profesor-alumnos.html">Siguiente</button></div>
+</main>
+<div class="toast" id="toast" hidden></div>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SIE · Profesores</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/panel.css">
+</head>
+<body>
+<header class="top"><span class="mark">SIE</span><div><b>Sistema de Gestión Escolar</b><small>Administrativo</small></div><span class="grow"></span><a class="out" href="login.html">Cerrar sesión</a></header>
+<main>
+<h1>Profesores</h1>
+<p class="sub">Marca la baja de materia que quieras aplicar y confirma.</p>
+<div class="card wrap"><table><thead><tr><th>Nombre</th><th>Matrícula</th><th>Materia en curso</th><th class="c">Baja de materia</th></tr></thead><tbody><tr><td>Dra. Laura Pérez</td><td>9001</td><td>Programación Orientada a Objetos</td><td class="c"><input type="checkbox" aria-label="Dar de baja a Dra. Laura Pérez"></td></tr><tr><td>Ing. Carlos Ramos</td><td>9002</td><td>Programación Orientada a Objetos</td><td class="c"><input type="checkbox" aria-label="Dar de baja a Ing. Carlos Ramos"></td></tr><tr><td>Dr. Jorge Treviño</td><td>9003</td><td>Bases de Datos</td><td class="c"><input type="checkbox" aria-label="Dar de baja a Dr. Jorge Treviño"></td></tr><tr><td>Ing. Marisol Garza</td><td>9004</td><td>Bases de Datos</td><td class="c"><input type="checkbox" aria-label="Dar de baja a Ing. Marisol Garza"></td></tr></tbody></table></div>
+<div class="bar"><button class="btn sec" data-ir="admin-menu.html">Atrás</button><button class="btn" data-aviso="Cambios confirmados (demostración)">Confirmar</button></div>
+</main>
+<div class="toast" id="toast" hidden></div>
+<script src="js/app.js"></script>
+</body>
+</html>

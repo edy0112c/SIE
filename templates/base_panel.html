@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SIE · {% block titulo %}{% endblock %}</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/panel.css') }}">
+</head>
+<body>
+<header class="top"><span class="mark">SIE</span><div><b>Sistema de Gestión Escolar</b><small>{{ etiqueta }} · {{ session.nombre }}</small></div><span class="grow"></span><a class="out" href="{{ url_for('salir') }}">Cerrar sesión</a></header>
+<main>
+<h1>{{ self.titulo() }}</h1>
+{% with mensajes = get_flashed_messages(with_categories=true) %}{% for cat, msg in mensajes %}<div class="card"><span class="{{ 'ok' if cat == 'ok' else 'err' }}">{{ msg }}</span></div>{% endfor %}{% endwith %}
+{% block contenido %}{% endblock %}
+</main>
+<div class="toast" id="toast" hidden></div>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

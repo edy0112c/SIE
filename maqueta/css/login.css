@@ -1,0 +1,58 @@
+/* SIE · Inicio de sesión — estilos */
+/* Colores y variables (modo claro y oscuro) */
+:root{--bg:#eef2f8;--card:#fff;--ink:#12213f;--mut:#5d6b87;--line:#d5ddeb;--field:#f4f7fc;--btn:#0f2a5c;--link:#1c4a9c;--gold:#f0b323;--err:#b3261e;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1220;--card:#131d33;--ink:#e8eefb;--mut:#9aa8c4;--line:#27344f;--field:#0e1830;--btn:#3f73e0;--link:#8fb0ff;--err:#ff8a80;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b1220;--card:#131d33;--ink:#e8eefb;--mut:#9aa8c4;--line:#27344f;--field:#0e1830;--btn:#3f73e0;--link:#8fb0ff;--err:#ff8a80;color-scheme:dark}
+
+/* Base de la página */
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font:400 15px/1.5 "Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{min-height:100%;display:grid;grid-template-columns:1fr}
+
+/* Panel azul con el nombre del sistema */
+.hero{color:#fff;padding:26px 22px 30px;background:radial-gradient(circle at 88% 8%,rgba(240,179,35,.28),transparent 42%),radial-gradient(circle at 8% 95%,rgba(255,255,255,.14),transparent 46%),linear-gradient(160deg,#0f2a5c,#1c4a9c)}
+.mark{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--gold);color:#0f2a5c;font-weight:800}
+.hero h1{margin:14px 0 4px;font-size:1.5rem;line-height:1.2;font-weight:800}
+.hero p{margin:0;opacity:.85}
+.feats{display:none;list-style:none;padding:0;margin:30px 0 0;gap:14px}
+.feats li{display:flex;gap:10px}
+.feats i{flex:none;width:8px;height:8px;margin-top:8px;border-radius:50%;background:var(--gold)}
+
+/* Tarjeta del formulario */
+main{display:grid;place-items:center;padding:20px 14px 28px}
+.card{width:100%;max-width:400px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+h2{margin:0;font-size:1.25rem}
+select{width:100%;padding:12px 42px;-webkit-appearance:none;appearance:none;background:var(--field);border:1px solid var(--line);border-radius:12px;color:var(--ink);font:inherit;cursor:pointer}
+select:focus-visible{outline:2px solid var(--link);outline-offset:1px}
+.sel::after{content:"";position:absolute;right:17px;top:50%;width:8px;height:8px;border-right:2px solid var(--mut);border-bottom:2px solid var(--mut);translate:0 -70%;rotate:45deg;pointer-events:none}
+.sub{margin:2px 0 0;color:var(--mut);font-size:13px}
+
+/* Campos del formulario */
+label{display:block;margin:16px 0 6px;font-size:13px;font-weight:600}
+.f{position:relative}
+.f>svg{position:absolute;left:12px;top:50%;translate:0 -50%;width:18px;height:18px}
+svg{stroke:var(--mut);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+input[type=text],input[type=password]{width:100%;padding:12px 42px;background:var(--field);border:1px solid var(--line);border-radius:12px;color:var(--ink);font:inherit}
+input:focus-visible{outline:2px solid var(--link);outline-offset:1px}
+.eye{position:absolute;right:4px;top:50%;translate:0 -50%;border:0;background:none;padding:9px;cursor:pointer;display:grid}
+.eye svg{width:18px;height:18px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px;font-size:13px}
+.chk{display:flex;align-items:center;gap:8px;margin:0;font-weight:400}
+a{color:var(--link);text-decoration:none;font-weight:600}
+
+/* Botón, mensajes y pie */
+.go{width:100%;margin-top:18px;padding:13px;border:0;border-radius:12px;background:var(--btn);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.go:hover{filter:brightness(1.12)}
+.msg{min-height:20px;margin:12px 0 0;font-size:13px;color:var(--err)}
+.msg.ok{color:var(--mut)}
+.foot{margin:14px 0 0;text-align:center;font-size:12px;color:var(--mut)}
+
+/* Pantallas grandes (laptop) */
+@media (min-width:860px){
+.wrap{grid-template-columns:1.05fr 1fr}
+.hero{display:flex;flex-direction:column;justify-content:center;padding:56px}
+.hero h1{font-size:2.2rem}
+.feats{display:grid}
+.card{padding:30px}
+}

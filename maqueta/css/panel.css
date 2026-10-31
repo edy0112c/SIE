@@ -1,0 +1,50 @@
+/* SIE · Pantallas internas (alumno, profesor, administrativo) */
+:root{--bg:#eef2f8;--card:#fff;--ink:#12213f;--mut:#5d6b87;--line:#d5ddeb;--field:#f4f7fc;--btn:#0f2a5c;--link:#1c4a9c;--gold:#f0b323;--ok:#1a7f4b;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1220;--card:#131d33;--ink:#e8eefb;--mut:#9aa8c4;--line:#27344f;--field:#0e1830;--btn:#3f73e0;--link:#8fb0ff;--ok:#5fd39a;color-scheme:dark}}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 "Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+
+/* Barra superior */
+.top{display:flex;align-items:center;gap:12px;padding:12px 16px;background:linear-gradient(160deg,#0f2a5c,#1c4a9c);color:#fff}
+.mark{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:var(--gold);color:#0f2a5c;font-weight:800;font-size:13px}
+.top b{font-weight:800}
+.top small{display:block;opacity:.8;font-size:12px}
+.grow{flex:1}
+.out{border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:10px;padding:8px 12px;font-weight:600;font-size:13px;text-decoration:none}
+
+/* Contenido */
+main{max-width:980px;margin:0 auto;padding:20px 14px 40px}
+h1{margin:0;font-size:1.3rem}
+.sub{margin:2px 0 16px;color:var(--mut);font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:16px}
+label{display:block;margin:0 0 6px;font-size:13px;font-weight:600}
+select,input[type=number]{padding:11px 12px;background:var(--field);border:1px solid var(--line);border-radius:12px;color:var(--ink);font:inherit}
+select{width:100%;max-width:440px}
+.row2{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.tag{display:inline-block;margin:0 6px 8px 0;padding:2px 10px;border-radius:99px;background:var(--field);border:1px solid var(--line);font-size:12px;font-weight:600}
+
+/* Tablas */
+.wrap{overflow-x:auto}
+table{width:100%;min-width:560px;border-collapse:collapse;font-size:14px}
+th,td{padding:10px;text-align:left;border-bottom:1px solid var(--line)}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);background:var(--field)}
+.c{text-align:center}
+input[type=radio],input[type=checkbox]{width:18px;height:18px;accent-color:var(--btn)}
+td input[type=number]{width:74px;padding:7px 8px;text-align:center}
+.ok{color:var(--ok);font-weight:700}
+
+/* Botones */
+.bar{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:6px}
+.btn{border:0;border-radius:12px;padding:11px 18px;background:var(--btn);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.btn.sec{background:none;color:var(--ink);border:1px solid var(--line)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* Menú del administrativo */
+.menu{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.opt{display:block;padding:22px;border-radius:16px;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--gold);color:var(--ink);text-decoration:none}
+.opt b{display:block;font-size:1.1rem}
+.opt span{color:var(--mut);font-size:13px}
+
+/* Aviso */
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));translate:-50% 0;background:var(--btn);color:#fff;padding:11px 18px;border-radius:12px;font-weight:600;font-size:14px}

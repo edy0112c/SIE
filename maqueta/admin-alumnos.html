@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SIE · Alumnos del grupo</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/panel.css">
+</head>
+<body>
+<header class="top"><span class="mark">SIE</span><div><b>Sistema de Gestión Escolar</b><small>Administrativo</small></div><span class="grow"></span><a class="out" href="login.html">Cerrar sesión</a></header>
+<main>
+<h1>Alumnos del grupo</h1>
+<p class="sub">Consulta las calificaciones y marca las bajas que quieras aplicar.</p>
+<span class="tag">Programación Orientada a Objetos</span><span class="tag">Grupo 001</span>
+<div class="card wrap"><table><thead><tr><th>Nombre</th><th>Matrícula</th><th>Hora</th><th class="c">Parcial 1</th><th class="c">Parcial 2</th><th class="c">Parcial 3</th><th class="c">Baja</th></tr></thead><tbody><tr><td>Ana Demo</td><td>2000001</td><td>Lun-Mié 7:00-8:40</td><td class="c">90</td><td class="c">85</td><td class="c">88</td><td class="c"><input type="checkbox" aria-label="Dar de baja a Ana Demo"></td></tr><tr><td>Luis Hernández</td><td>2000002</td><td>Lun-Mié 7:00-8:40</td><td class="c">70</td><td class="c">75</td><td class="c">—</td><td class="c"><input type="checkbox" aria-label="Dar de baja a Luis Hernández"></td></tr><tr><td>María González</td><td>2000003</td><td>Lun-Mié 7:00-8:40</td><td class="c">95</td><td class="c">92</td><td class="c">97</td><td class="c"><input type="checkbox" aria-label="Dar de baja a María González"></td></tr><tr><td>Diego Salinas</td><td>2000004</td><td>Lun-Mié 7:00-8:40</td><td class="c">60</td><td class="c">—</td><td class="c">—</td><td class="c"><input type="checkbox" aria-label="Dar de baja a Diego Salinas"></td></tr><tr><td>Sofía Villarreal</td><td>2000005</td><td>Lun-Mié 7:00-8:40</td><td class="c">82</td><td class="c">88</td><td class="c">90</td><td class="c"><input type="checkbox" aria-label="Dar de baja a Sofía Villarreal"></td></tr></tbody></table></div>
+<div class="bar"><button class="btn sec" data-ir="admin-materia.html">Atrás</button><button class="btn" data-aviso="Bajas confirmadas (demostración)">Confirmar</button></div>
+</main>
+<div class="toast" id="toast" hidden></div>
+<script src="js/app.js"></script>
+</body>
+</html>

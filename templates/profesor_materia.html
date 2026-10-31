@@ -1,0 +1,13 @@
+{% extends "base_panel.html" %}
+{% block titulo %}Mis grupos{% endblock %}
+{% block contenido %}
+<p class="sub">Elige la materia y marca el grupo que quieres revisar.</p>
+{% if not materias %}<div class="card"><p class="sub">Todavía no tienes grupos asignados.</p></div>{% endif %}
+<form method="get" action="{{ url_for('profesor_alumnos') }}">
+<div class="card"><label for="materia">Materia</label><select id="materia" data-filtra="#tabla"><option value="">Selecciona una materia</option>{% for m in materias %}<option value="{{ m.id_materia }}">{{ m.nombre }}</option>{% endfor %}</select></div>
+<div class="card wrap" id="tabla" hidden><table><thead><tr><th>Grupo</th><th>Clave</th><th>Horario</th><th>Cupo máximo</th><th>Inscritos</th><th class=c>Seleccionar</th></tr></thead><tbody>
+{% for g in grupos %}<tr data-materia="{{ g.id_materia }}"><td>{{ g.etiqueta }}</td><td>{{ g.clave }}</td><td>{{ g.horario }}</td><td>{{ g.cupo_maximo if g.cupo_maximo is not none else "—" }}</td><td>{{ g.inscritos }}</td><td class="c"><input type="radio" name="id_grupo" value="{{ g.id_grupo }}" aria-label="Elegir grupo {{ g.etiqueta }}"></td></tr>{% endfor %}
+</tbody></table></div>
+<div class="bar"><button class="btn" type="submit" data-necesita="input[name=id_grupo]:checked">Siguiente</button></div>
+</form>
+{% endblock %}
