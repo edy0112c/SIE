@@ -1,7 +1,0 @@
-{% extends "base_panel.html" %}
-{% block titulo %}Panel administrativo{% endblock %}
-{% block contenido %}
-<p class="sub">Elige qué quieres consultar.</p>
-<div class="card"><label for="destino">Consultar</label><select id="destino"><option value="">Selecciona una opción</option><option value="{{ url_for('admin_materias') }}">Materias</option><option value="{{ url_for('admin_profesores') }}">Profesores</option></select></div>
-<div class="bar"><button class="btn" type="button" data-necesita="#destino" data-ir-select="#destino">Siguiente</button></div>
-{% endblock %}
