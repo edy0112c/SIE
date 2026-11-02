@@ -38,11 +38,11 @@ app.secret_key = os.environ["FLASK_SECRET_KEY"]
 app.config.update(
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SAMESITE="Lax",
-    PERMANENT_SESSION_LIFETIME=timedelta(days=7),  # duración de "Recordarme"
+    PERMANENT_SESSION_LIFETIME=timedelta(days=7), 
 )
-INACTIVIDAD = 30 * 60  # segundos sin actividad antes de cerrar la sesión
+INACTIVIDAD = 30 * 60  
 
-# Cliente del servidor: usa la llave secreta y se salta RLS. Nunca sale del backend.
+
 db = create_client(URL, LLAVE_SECRETA)
 
 ROL_BD = {"alumno": "alumno", "profesor": "profesor", "admin": "administrador"}
@@ -137,10 +137,10 @@ def autenticar(tipo, identificador, clave):
         usuario, nombre = encontrado
         if usuario["rol"] != ROL_BD[tipo]:
             return None
-        # Cliente nuevo por intento: una sesión nunca se mezcla con la de otra persona.
+        
         create_client(URL, LLAVE_PUBLICA).auth.sign_in_with_password(
             {"email": usuario["correo"], "password": clave})
-    except Exception as error:  # el motivo real se ve en la terminal, no en la pantalla
+    except Exception as error:  
         app.logger.warning("Login rechazado (%s): %s", tipo, error)
         return None
     return {"uid": usuario["id_usuario"], "rol": tipo, "nombre": nombre}
@@ -367,38 +367,70 @@ def profesor_alumnos():
     return pagina("profesor_alumnos.html", grupo=grupo, materia=materia, filas=filas)
 
 
+# 371: Eliminamos el candado exclusivo de profesor para que el admin pueda enviar datos aquí
 @app.route("/profesor/guardar", methods=["POST"])
-@rol_requerido("profesor")
 def profesor_guardar():
     verificar_csrf()
-    grupo = grupo_del_profesor(request.form.get("id_grupo"))
+    id_grupo_form = request.form.get("id_grupo")
+    
+    if session.get("rol") in ["admin", "administrador"]:
+        resultado_grupo = db.table("grupos").select("*").eq("id_grupo", id_grupo_form).execute()
+        grupo = resultado_grupo.data if (resultado_grupo.data and len(resultado_grupo.data) > 0) else None
+    else:
+        grupo = grupo_del_profesor(id_grupo_form)
+        
     if not grupo:
         abort(403)
-    filas, califs = alumnos_del_grupo(grupo["id_grupo"])
+        
+    filas, califs = alumnos_del_grupo(id_grupo_form)
     cambios = {}
+    
     for f in filas:
-        valores = []
+        calif_existente = califs.get(f["id_inscripcion"], {})
+        valores_parciales = []
+        
         for n in (1, 2, 3):
             texto = request.form.get(f"p{n}_{f['id_inscripcion']}", "").strip()
+            val_previo = calif_existente.get(f"parcial_{n}")
+            
             try:
-                v = float(texto) if texto else None
+                v_enviado = float(texto) if texto else None
             except ValueError:
-                v = -1
-            if v is not None and not 0 <= v <= 100:
-                flash("Las calificaciones deben estar entre 0 y 100.", "error")
-                return redirect(url_for("profesor_alumnos", id_grupo=grupo["id_grupo"]))
-            valores.append(v)
-        cambios[f["id_inscripcion"]] = dict(parcial_1=valores[0], parcial_2=valores[1],
-                                            parcial_3=valores[2], final=promedio(*valores))
+                v_enviado = -1
+
+            if val_previo is not None and session.get("rol") not in ["admin", "administrador"]:
+                if v_enviado != val_previo:
+                    flash("Acceso denegado: Las calificaciones ya capturadas solo pueden ser modificadas por un administrador.", "error")
+                    return redirect(url_for("profesor_alumnos", id_grupo=id_grupo_form))
+                v = val_previo
+            else:
+                if v_enviado is not None and not 0 <= v_enviado <= 100:
+                    flash("Las calificaciones deben estar entre 0 y 100.", "error")
+                    if session.get("rol") in ["admin", "administrador"]:
+                        return redirect(url_for("admin_alumnos", id_grupo=id_grupo_form))
+                    return redirect(url_for("profesor_alumnos", id_grupo=id_grupo_form))
+                v = v_enviado
+                
+            valores_parciales.append(v)
+
+        cambios[f["id_inscripcion"]] = {
+            "parcial_1": valores_parciales[0],
+            "parcial_2": valores_parciales[1],
+            "parcial_3": valores_parciales[2],
+            "final": promedio(*valores_parciales)
+        }
+        
     for id_inscripcion, datos in cambios.items():
         if id_inscripcion in califs:
             db.table("calificaciones").update(datos).eq("id_inscripcion", id_inscripcion).execute()
         else:
             db.table("calificaciones").insert(
                 dict(datos, id_calificacion=str(uuid.uuid4()), id_inscripcion=id_inscripcion)).execute()
-    flash("Calificaciones guardadas.", "ok")
-    return redirect(url_for("profesor_alumnos", id_grupo=grupo["id_grupo"]))
-
+                
+    flash("Calificaciones guardadas exitosamente.", "ok")
+    if session.get("rol") in ["admin", "administrador"]:
+        return redirect(url_for("admin_alumnos", id_grupo=id_grupo_form))
+    return redirect(url_for("profesor_alumnos", id_grupo=id_grupo_form))
 
 # ======================= Administrativo =======================
 @app.route("/admin")
@@ -488,4 +520,4 @@ def admin_alumnos_baja():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)  # debug solo en desarrollo
+    app.run(debug=True) 
