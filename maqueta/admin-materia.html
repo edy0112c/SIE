@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SIE · Materias</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/panel.css">
+</head>
+<body>
+<header class="top"><span class="mark">SIE</span><div><b>Sistema de Gestión Escolar</b><small>Administrativo</small></div><span class="grow"></span><a class="out" href="login.html">Cerrar sesión</a></header>
+<main>
+<h1>Materias</h1>
+<p class="sub">Elige la materia y el grupo para ver a sus alumnos.</p>
+<div class="card"><div class="row2"><div><label for="materia">Materia</label><select id="materia" ><option value="">Selecciona una opción</option><option value="poo">Programación Orientada a Objetos</option><option value="bd">Bases de Datos</option><option value="ed">Estructuras de Datos</option><option value="cd">Cálculo Diferencial</option></select></div><div><label for="grupo">Grupo</label><select id="grupo" data-depende="#materia"><option value="">Selecciona un grupo</option><option value="poo" data-materia="poo">Grupo 001 · Lun-Mié 7:00-8:40</option><option value="poo" data-materia="poo">Grupo 002 · Mar-Jue 9:00-10:40</option><option value="bd" data-materia="bd">Grupo 001 · Lun-Mié 11:00-12:40</option><option value="bd" data-materia="bd">Grupo 002 · Vie 7:00-10:00</option><option value="ed" data-materia="ed">Grupo 001 · Mar-Jue 7:00-8:40</option><option value="cd" data-materia="cd">Grupo 001 · Lun-Mié-Vie 13:00-14:00</option></select></div></div></div>
+<div class="bar"><button class="btn sec" data-ir="admin-menu.html">Atrás</button><button class="btn" data-necesita="#materia,#grupo" data-ir="admin-alumnos.html">Siguiente</button></div>
+</main>
+<div class="toast" id="toast" hidden></div>
+<script src="js/app.js"></script>
+</body>
+</html>

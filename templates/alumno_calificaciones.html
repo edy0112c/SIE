@@ -1,0 +1,9 @@
+{% extends "base_panel.html" %}
+{% block titulo %}Mis materias y calificaciones{% endblock %}
+{% block contenido %}
+<p class="sub">Las calificaciones aparecen aquí cuando tu profesor las captura. Esta pantalla se muestra cada vez que inicias sesión.</p>
+<div class="card wrap"><table><thead><tr><th>Materia</th><th>Clave</th><th>Grupo</th><th>Hora</th><th class=c>Parcial 1</th><th class=c>Parcial 2</th><th class=c>Parcial 3</th><th class=c>Final</th></tr></thead><tbody>
+{% for f in filas %}<tr><td>{{ f.materia }}</td><td>{{ f.clave }}</td><td>{{ f.grupo }}</td><td>{{ f.horario }}</td><td class="c">{{ f.p1|nota }}</td><td class="c">{{ f.p2|nota }}</td><td class="c">{{ f.p3|nota }}</td><td class="c ok">{{ f.final|nota }}</td></tr>{% endfor %}
+</tbody></table></div>
+<div class="bar"><a class="btn sec" href="{{ url_for('alumno_inscripcion') }}">Inscribir otra materia</a></div>
+{% endblock %}

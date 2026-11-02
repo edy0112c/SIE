@@ -1,0 +1,14 @@
+{% extends "base_panel.html" %}
+{% block titulo %}Alumnos del grupo{% endblock %}
+{% block contenido %}
+<p class="sub">Consulta las calificaciones y marca las bajas que quieras aplicar.</p>
+<span class="tag">{{ materia }}</span><span class="tag">Grupo {{ grupo.etiqueta }}</span>
+<form method="post" action="{{ url_for('admin_alumnos_baja') }}">
+<input type="hidden" name="csrf" value="{{ token_csrf() }}"><input type="hidden" name="id_grupo" value="{{ grupo.id_grupo }}">
+<div class="card wrap"><table><thead><tr><th>Nombre</th><th>Matrícula</th><th>Hora</th><th class=c>Parcial 1</th><th class=c>Parcial 2</th><th class=c>Parcial 3</th><th class=c>Final</th><th class=c>Baja</th></tr></thead><tbody>
+{% for f in filas %}<tr><td>{{ f.nombre }}</td><td>{{ f.matricula }}</td><td>{{ grupo.horario }}</td><td class="c">{{ f.c.get("parcial_1")|nota }}</td><td class="c">{{ f.c.get("parcial_2")|nota }}</td><td class="c">{{ f.c.get("parcial_3")|nota }}</td><td class="c ok">{{ f.c.get("final")|nota }}</td><td class="c"><input type="checkbox" name="baja" value="{{ f.id_inscripcion }}" aria-label="Dar de baja a {{ f.nombre }}"></td></tr>
+{% else %}<tr><td colspan="8">Este grupo todavía no tiene alumnos inscritos.</td></tr>{% endfor %}
+</tbody></table></div>
+<div class="bar"><a class="btn sec" href="{{ url_for('admin_materias') }}">Atrás</a>{% if filas %}<button class="btn" type="submit">Confirmar</button>{% endif %}</div>
+</form>
+{% endblock %}

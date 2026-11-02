@@ -1,0 +1,13 @@
+{% extends "base_panel.html" %}
+{% block titulo %}Inscripción de materias{% endblock %}
+{% block contenido %}
+<p class="sub">Elige la materia y marca el grupo en el que quieres inscribirte.</p>
+<form method="post" action="{{ url_for('alumno_inscribir') }}">
+<input type="hidden" name="csrf" value="{{ token_csrf() }}">
+<div class="card"><label for="materia">Materia</label><select id="materia" data-filtra="#tabla"><option value="">Selecciona una materia</option>{% for m in materias %}<option value="{{ m.id_materia }}">{{ m.nombre }}</option>{% endfor %}</select></div>
+<div class="card wrap" id="tabla" hidden><table><thead><tr><th>Grupo</th><th>Clave</th><th>Horario</th><th>Cupo máximo</th><th>Lugares libres</th><th>Profesor</th><th class=c>Seleccionar</th></tr></thead><tbody>
+{% for g in grupos %}<tr data-materia="{{ g.id_materia }}"><td>{{ g.etiqueta }}</td><td>{{ g.clave }}</td><td>{{ g.horario }}</td><td>{{ g.cupo_maximo if g.cupo_maximo is not none else "—" }}</td><td>{{ g.libres if g.libres is not none else "—" }}</td><td>{{ g.profesor }}</td><td class="c"><input type="radio" name="id_grupo" value="{{ g.id_grupo }}" aria-label="Elegir grupo {{ g.etiqueta }}"{% if g.libres == 0 %} disabled{% endif %}></td></tr>{% endfor %}
+</tbody></table></div>
+<div class="bar">{% if tiene %}<a class="btn sec" href="{{ url_for('panel_alumno') }}">Ver mis materias</a>{% endif %}<button class="btn" type="submit" data-necesita="input[name=id_grupo]:checked">Inscribir materia</button></div>
+</form>
+{% endblock %}

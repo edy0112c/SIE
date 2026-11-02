@@ -1,0 +1,12 @@
+{% extends "base_panel.html" %}
+{% block titulo %}Profesores{% endblock %}
+{% block contenido %}
+<p class="sub">Marca la baja de materia que quieras aplicar y confirma. El grupo queda sin profesor.</p>
+<form method="post" action="{{ url_for('admin_profesores_baja') }}">
+<input type="hidden" name="csrf" value="{{ token_csrf() }}">
+<div class="card wrap"><table><thead><tr><th>Nombre</th><th>Matrícula</th><th>Materia en curso</th><th class=c>Baja</th></tr></thead><tbody>
+{% for f in filas %}<tr><td>{{ f.nombre_completo }}</td><td>{{ f.num_empleado or "—" }}</td><td>{{ f.materia }}</td><td class="c">{% if f.id_grupo %}<input type="checkbox" name="baja" value="{{ f.id_grupo }}" aria-label="Dar de baja a {{ f.nombre_completo }}">{% endif %}</td></tr>{% endfor %}
+</tbody></table></div>
+<div class="bar"><a class="btn sec" href="{{ url_for('panel_admin') }}">Atrás</a><button class="btn" type="submit">Confirmar</button></div>
+</form>
+{% endblock %}
