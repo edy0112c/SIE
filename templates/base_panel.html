@@ -6,6 +6,7 @@
 <title>SIE · {% block titulo %}{% endblock %}</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/panel.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}">
 </head>
 <body>
 <header class="top"><span class="mark">SIE</span><div><b>Sistema de Gestión Escolar</b><small>{{ etiqueta }} · {{ session.nombre }}</small></div><span class="grow"></span><a class="out" href="{{ url_for('salir') }}">Cerrar sesión</a></header>
@@ -16,5 +17,7 @@
 </main>
 <div class="toast" id="toast" hidden></div>
 <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+ <div id="sie-chatbot" data-csrf="{{ token_csrf() }}" data-inicio="{{ url_for('chatbot.inicio') }}" data-preguntar="{{ url_for('chatbot.preguntar') }}"></div>
+   <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
 </body>
 </html>

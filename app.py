@@ -1,14 +1,13 @@
-import sys
+import sys  # Librerias necesarias para el funcionamiento de la aplicación
 import hmac
 import os
 import secrets
-import time
+import time 
 import uuid
 from collections import Counter
 from datetime import timedelta
-from functools import wraps
-
 import sys
+from functools import wraps
 from dotenv import load_dotenv
 from flask import Flask, abort, flash, redirect, render_template, request, session, url_for
 from supabase import create_client
@@ -33,6 +32,8 @@ app = Flask(
     static_folder=os.path.join(base_path, 'static')
 )
 
+from chatbot import chatbot_bp     # Conexión a la ruta del blueprint del Chatbot
+app.register_blueprint(chatbot_bp)
 
 app.secret_key = os.environ["FLASK_SECRET_KEY"]
 app.config.update(
@@ -367,7 +368,7 @@ def profesor_alumnos():
     return pagina("profesor_alumnos.html", grupo=grupo, materia=materia, filas=filas)
 
 
-# 371: Eliminamos el candado exclusivo de profesor para que el admin pueda enviar datos aquí
+#: Eliminamos el candado exclusivo de profesor para que el admin pueda enviar datos aquí
 @app.route("/profesor/guardar", methods=["POST"])
 def profesor_guardar():
     verificar_csrf()
